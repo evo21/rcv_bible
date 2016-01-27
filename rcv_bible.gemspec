@@ -1,20 +1,19 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rcv_bible/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rcv_bible"
-  spec.version       = RcvBible::VERSION
+  spec.version       = '0.1.0'
   spec.authors       = ["Evan Koch"]
   spec.email         = ["evankoch@gmail.com"]
 
   spec.summary       = %q{Build text from the Recovery Version from verse/chapter/book submissions.}
   spec.description   = %q{Gateway to API--returns text from the Recovery Version of the New Testament, accessed from the Holy Bible Recovery Version (text-only edition) Copyright 2012 Living Stream Ministry.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/evo21/rcv_bible"
   spec.license       = "MIT"
 
-  spec.files         = ["lib/rcv_bible.rb"]
+  spec.files         = "lib/rcv_bible.rb"
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]

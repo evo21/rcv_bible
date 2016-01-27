@@ -8,7 +8,7 @@ describe RcvBible do
     expect(RcvBible::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  it 'returns some data' do
+    expect(RcvBible.new("Psalm 23").text_of).not_to be nil
   end
 end
