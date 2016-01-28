@@ -9,6 +9,6 @@ describe RcvBible do
   end
 
   it 'returns some data' do
-    expect(RcvBible.new("Psalm 23").text_of).not_to be nil
+    expect(RcvBible::Extractor.text_of("Psalm 23")).not_to be nil
   end
 end

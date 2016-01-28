@@ -19,6 +19,7 @@ class RcvBible::Extractor
 
   def text_of
     response = HTTParty.get("https://api.lsm.org/recver.php?String=#{@parsed_request}&Out=json")
+    binding.pry
     return response
   end
 
@@ -27,6 +28,8 @@ class RcvBible::Extractor
                   # input_string to return a string form acceptable to LSM API
   end
 end
+
+
 
 
 
