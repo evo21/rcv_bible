@@ -11,8 +11,9 @@ end
 
 describe RcvBible::Extractor do
   describe "#text_of" do
-    it 'returns some value--change this to Data Typer later' do
-      expect(RcvBible::Extractor.text_of("Psalm 23").class).to eq Hash
+    it 'returns some value' do
+      expect(RcvBible::Extractor.text_of("Psalm 23")).not_to be nil
+      expect(RcvBible::Extractor.text_of("Matt 1").class).to eq Hash
     end
     it 'returns full verse list in chapters with more than 30 verses' do
       expect(RcvBible::Extractor.text_of("Psalm 119")["Psalm 119"].count).to eq 176
@@ -35,6 +36,14 @@ describe RcvBible::Extractor do
     end
     it 'returns error message when passed bad book/chapter arguments' do
       expect(RcvBible::Extractor.text_of("Awesome")["Awesome"]).to eq "Bad Reference"
+    end
+    it 'returns a valid response regardless of single, double, or [no] quotes in submission' do
+      expect(RcvBible::Extractor.text_of("Matt 1")["Matt 1"].count).to eq 25
+      expect(RcvBible::Extractor.text_of('Matt 1')["Matt 1"].count).to eq 25
+      expect(RcvBible::Extractor.text_of("1 Kings 1")["1 Kings 1"].count).to eq 53
+      expect(RcvBible::Extractor.text_of('1 Kings 1')["1 Kings 1"].count).to eq 53
+      expect(RcvBible::Extractor.text_of('2 John 1')["2 John 1-13"].count).to eq 13
+      expect(RcvBible::Extractor.text_of("2 John 1")["2 John 1-13"].count).to eq 13
     end
   end
 end

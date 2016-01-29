@@ -39,6 +39,7 @@ class RcvBible::Extractor
     input_string = initial_hash["request"]["inputstring"]
     initial_verses_array = initial_hash["request"]["verses"]["verse"]
     message = initial_hash["request"]["message"]
+    binding.pry
     if message == "\t"  #keeping hash response instead of JSON response, b/c of API error with their JSON encoding, which gives response unrecognized by rubyJSON.
       return { input_string => initial_verses_array }
     elsif message["Bad Reference"]
@@ -72,11 +73,5 @@ class RcvBible::Extractor
       @input_string
     end
   end
-
-  private
-    def more_than_thirty_verses?
-      @verses.size > 30
-    end
-
 end
 end
