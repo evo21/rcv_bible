@@ -1,7 +1,8 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
 initialize	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def initialize(input_string)$/;"	f	language:Ruby	class:RcvBible.RcvBible
-parse_input_string	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def parse_input_string(input_string)$/;"	f	language:Ruby	class:RcvBible.RcvBible
+more_than_thirty_verses?	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^    def more_than_thirty_verses?$/;"	f	language:Ruby	class:RcvBible.RcvBible
+parse_input_string	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def parse_input_string$/;"	f	language:Ruby	class:RcvBible.RcvBible
 RcvBible	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^class RcvBible$/;"	c	language:Ruby
 RcvBible	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^class RcvBible::Extractor$/;"	c	language:Ruby	class:RcvBible
-text_of	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def self.text_of(input_string)$/;"	F	language:Ruby	class:RcvBible.RcvBible
+text_of	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def self.text_of(input_string)  # RcvBible::Extractor('Book Chapter:Verses')$/;"	F	language:Ruby	class:RcvBible.RcvBible
 text_of	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def text_of$/;"	f	language:Ruby	class:RcvBible.RcvBible
