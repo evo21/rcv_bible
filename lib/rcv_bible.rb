@@ -1,13 +1,9 @@
 require "acts_as_scriptural"
 require "httparty"
 
-
-
-
 class RcvBible
 
   VERSION = "0.0.1"
-
 
 class RcvBible::Reference
 
@@ -29,7 +25,7 @@ class RcvBible::Reference
     @response["request"]["message"]
   end
 
-  def verses_array
+  def short_chapter_verses_array
     @verses_array ||= @response["request"]["verses"]["verse"]
   end
 
@@ -45,41 +41,64 @@ class RcvBible::Reference
     @message.sub(/.*?requested /, '').split.first.to_i
   end
 
-  def required_iterations
-    (chapter_verse_count / 30)
+#  def required_iterations
+#    (chapter_verse_count / 30)
+#  end
+#
+#  def verse_ranges
+#    result = []
+#    0.upto(required_iterations) do |vr|
+#      result << [(vr * 30) +1, (vr * 30) + 30]
+#    end
+#    result.last.last = chapter_verse_count
+#    result
+#  end
+
+  def text_of
+    if completed_response?
+      return { @reference => verses_array }
+    elsif invalid_reference?
+      return { @reference => message["Bad Reference"] }
+    else
+      long_chapter_verses_array = []
+      RcvBible::ChapterRangeMaker.new(chapter_verse_count).verse_ranges.each do |vr|
+      verses_chunk = HTTParty.get(
+                                  "https://api.lsm.org/recver.php?String=#{@reference}: #{vr.first}-#{vr.last}").
+                                  to_h["request"]["verses"]["verse"]
+        long_chapter_verses_array << verses_chunk
+      end
+      return { @reference => long_chapter_verses_array.flatten }
+    end
+  end
+end
+
+class ChapterRangeMaker
+
+  VERSELIMIT = 30
+
+  def initialize(num_verses)
+    @num_verses = num_verses
   end
 
   def verse_ranges
     result = []
-    0.upto(required_iterations) do |vr|
-      result << [(vr * 30) +1, (vr * 30) + 30]
+    1.step(@num_verses,VERSELIMIT) do |i|
+      result << [i, last_verse_in_range(i)]
     end
-    result.last.last = chapter_verse_count
     result
   end
 
-  def text_of
-    if completed_response?
-      return { input_string => verses_array }
-    elsif invalid_reference?
-      return { input_string => message["Bad Reference"] }
+  def last_verse_in_range(first_verse_in_range)
+    last_verse_number = first_verse_in_range + VERSELIMIT - 1
+    if last_verse_number > @num_verses
+      @num_verses
     else
-      verses_array = []
-      verse_ranges.each do |range|
-        additional_verses = HTTParty.get("https://api.lsm.org/recver.php?String=#{@reference}: #{range.first}-#{range.last}").to_h["request"]["verses"]["verse"]
-        verses_array << additional_verses
-      end
-      return { input_string => verses_array.flatten }
+      last_verse_number
     end
   end
-
-
 end
 
-
-
 class RcvBible::OneChapterBookConverter
-
   OCB_REFERENCES = { "obadiah" => "Oba 1-21",
               "obadiah 1" => "Oba 1-21",
               "obadiah 1:1-21" => "Oba 1-21",
@@ -112,6 +131,5 @@ class RcvBible::OneChapterBookConverter
       @reference
     end
   end
-
 end
 end

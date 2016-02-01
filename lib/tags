@@ -1,18 +1,20 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
 adjust_reference	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def adjust_reference$/;"	f	language:Ruby	class:RcvBible.RcvBible
 adjust_reference	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def self.adjust_reference(reference)$/;"	F	language:Ruby	class:RcvBible.RcvBible
+ChapterRangeMaker	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^class ChapterRangeMaker$/;"	c	language:Ruby	class:RcvBible
 chapter_verse_count	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def chapter_verse_count$/;"	f	language:Ruby	class:RcvBible.RcvBible
 completed_response?	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def completed_response?$/;"	f	language:Ruby	class:RcvBible.RcvBible
+initialize	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def initialize(num_verses)$/;"	f	language:Ruby	class:RcvBible.ChapterRangeMaker
 initialize	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def initialize(reference)$/;"	f	language:Ruby	class:RcvBible.RcvBible
 initialize	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def initialize(reference)$/;"	f	language:Ruby	class:RcvBible.RcvBible
 invalid_reference?	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def invalid_reference?$/;"	f	language:Ruby	class:RcvBible.RcvBible
+last_verse_in_range	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def last_verse_in_range(first_verse_in_range)$/;"	f	language:Ruby	class:RcvBible.ChapterRangeMaker
 message	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def message$/;"	f	language:Ruby	class:RcvBible.RcvBible
 RcvBible	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^class RcvBible$/;"	c	language:Ruby
 RcvBible	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^class RcvBible::OneChapterBookConverter$/;"	c	language:Ruby	class:RcvBible
 RcvBible	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^class RcvBible::Reference$/;"	c	language:Ruby	class:RcvBible
 reference_chapter	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def reference_chapter$/;"	f	language:Ruby	class:RcvBible.RcvBible
-required_iterations	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def required_iterations$/;"	f	language:Ruby	class:RcvBible.RcvBible
+short_chapter_verses_array	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def short_chapter_verses_array$/;"	f	language:Ruby	class:RcvBible.RcvBible
 text_of	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def self.text_of(reference)$/;"	F	language:Ruby	class:RcvBible.RcvBible
 text_of	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def text_of$/;"	f	language:Ruby	class:RcvBible.RcvBible
-verses_array	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def verses_array$/;"	f	language:Ruby	class:RcvBible.RcvBible
-verse_ranges	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def verse_ranges$/;"	f	language:Ruby	class:RcvBible.RcvBible
+verse_ranges	/Users/evankoch/code/rcv_bible/lib/rcv_bible.rb	/^  def verse_ranges$/;"	f	language:Ruby	class:RcvBible.ChapterRangeMaker
