@@ -11,6 +11,7 @@ class RcvBible::Reference
     @reference = reference
     @parsed_request = RcvBible::OneChapterBookConverter.adjust_reference(reference)
     @response = HTTParty.get("https://api.lsm.org/recver.php?String=#{@parsed_request}").to_h
+    @message = @response["request"]["message"]
   end
 
   def self.text_of(reference)
@@ -56,9 +57,9 @@ class RcvBible::Reference
 
   def text_of
     if completed_response?
-      return { @reference => verses_array }
+      return { @reference => short_chapter_verses_array }
     elsif invalid_reference?
-      return { @reference => message["Bad Reference"] }
+      return { @reference => @message["Bad Reference"] }
     else
       long_chapter_verses_array = []
       RcvBible::ChapterRangeMaker.new(chapter_verse_count).verse_ranges.each do |vr|
