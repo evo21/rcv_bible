@@ -5,7 +5,89 @@ class RcvBible
 
   VERSION = "0.0.1"
 
-  SINGLES = { "obadiah" => "Oba 1-21",
+class RcvBible::Reference
+
+  def initialize(reference)
+    @reference = reference
+    @parsed_request = RcvBible::OneChapterBookConverter.adjust_reference(reference)
+    @response = HTTParty.get("https://api.lsm.org/recver.php?String=#{@parsed_request}").to_h
+    @message = @response["request"]["message"]
+  end
+
+  def self.text_of(reference)
+    self.new(reference).text_of
+  end
+
+  def reference_chapter
+
+  end
+
+  def message
+    @response["request"]["message"]
+  end
+
+  def short_chapter_verses_array
+    @short_chapter_verses_array ||= @response["request"]["verses"]["verse"]
+  end
+
+  def completed_response?
+    @message == "\t"
+  end
+
+  def invalid_reference?
+    @message["Bad Reference"]
+  end
+
+  def chapter_verse_count
+    @message.sub(/.*?requested /, '').split.first.to_i
+  end
+
+  def text_of
+    if completed_response?
+      return { @reference => short_chapter_verses_array }
+    elsif invalid_reference?
+      return { @reference => @message["Bad Reference"] }
+    else
+      long_chapter_verses_array = []
+      RcvBible::ChapterRangeMaker.new(chapter_verse_count).verse_ranges.each do |vr|
+      verses_chunk = HTTParty.get(
+                                  "https://api.lsm.org/recver.php?String=#{@reference}: #{vr.first}-#{vr.last}").
+                                  to_h["request"]["verses"]["verse"]
+        long_chapter_verses_array << verses_chunk
+      end
+      return { @reference => long_chapter_verses_array.flatten }
+    end
+  end
+end
+
+class ChapterRangeMaker
+
+  VERSELIMIT = 30
+
+  def initialize(num_verses)
+    @num_verses = num_verses
+  end
+
+  def verse_ranges
+    result = []
+    1.step(@num_verses,VERSELIMIT) do |i|
+      result << [i, last_verse_in_range(i)]
+    end
+    result
+  end
+
+  def last_verse_in_range(first_verse_in_range)
+    last_verse_number = first_verse_in_range + VERSELIMIT - 1
+    if last_verse_number > @num_verses
+      @num_verses
+    else
+      last_verse_number
+    end
+  end
+end
+
+class RcvBible::OneChapterBookConverter
+  OCB_REFERENCES = { "obadiah" => "Oba 1-21",
               "obadiah 1" => "Oba 1-21",
               "obadiah 1:1-21" => "Oba 1-21",
               "philemon" => "Philem 1-25",
@@ -22,54 +104,19 @@ class RcvBible
               "jude 1:1-24" => "Jude 1-24"
             }
 
-class RcvBible::Extractor
-
-  def initialize(input_string)
-    @input_string = input_string
-    @parsed_request = parse_input_string
-
+  def self.adjust_reference(reference)
+    self.new(reference).adjust_reference
   end
 
-  def self.text_of(input_string)  # RcvBible::Extractor('Book Chapter:Verses')
-    self.new(input_string).text_of
+  def initialize(reference)
+    @reference = reference
   end
 
-  def text_of
-    initial_hash = HTTParty.get("https://api.lsm.org/recver.php?String=#{@parsed_request}").to_h
-    input_string = initial_hash["request"]["inputstring"]
-    initial_verses_array = initial_hash["request"]["verses"]["verse"]
-    message = initial_hash["request"]["message"]
-    if message == "\t"  #keeping hash response instead of JSON response, b/c of API error with their JSON encoding, which gives response unrecognized by rubyJSON.
-      return { input_string => initial_verses_array }
-    elsif message["Bad Reference"]
-      return { input_string => message["Bad Reference"] }
+  def adjust_reference
+    if OCB_REFERENCES[@reference.downcase]
+      OCB_REFERENCES[@reference.downcase]
     else
-      chapter_verse_count = message.sub(/.*?requested /, '').split.first.to_i
-      iterations = chapter_verse_count / 30
-      verses_array = []
-      0.upto(iterations) do |x|
-        if x == iterations
-          additional_verses = HTTParty.get("https://api.lsm.org/recver.php?String=#{input_string}: #{(30 * x) + 1}-#{chapter_verse_count}").to_h["request"]["verses"]["verse"]
-          verses_array << additional_verses
-          return { input_string => verses_array.flatten }
-        else
-          additional_verses = HTTParty.get("https://api.lsm.org/recver.php?String=#{input_string}: #{x * 30 + 1}-#{30 * (x + 1)}").to_h["request"]["verses"]["verse"]
-          verses_array << additional_verses
-        end
-      end
-    end
-  end
-
-
-  def parse_input_string
-    @input_string.gsub('"', "%27")
-    if SINGLES[@input_string.downcase]
-      SINGLES[@input_string.downcase]
-                    # this is temporary place holder, eventually this
-                    # will need to parse input-string to return a 
-                    # string form acceptable to LSM API for all requests
-    else
-      @input_string
+      @reference
     end
   end
 end
