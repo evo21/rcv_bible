@@ -42,19 +42,6 @@ class RcvBible::Reference
     @message.sub(/.*?requested /, '').split.first.to_i
   end
 
-#  def required_iterations
-#    (chapter_verse_count / 30)
-#  end
-#
-#  def verse_ranges
-#    result = []
-#    0.upto(required_iterations) do |vr|
-#      result << [(vr * 30) +1, (vr * 30) + 30]
-#    end
-#    result.last.last = chapter_verse_count
-#    result
-#  end
-
   def text_of
     if completed_response?
       return { @reference => short_chapter_verses_array }
