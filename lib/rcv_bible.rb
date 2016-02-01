@@ -27,7 +27,7 @@ class RcvBible::Reference
   end
 
   def short_chapter_verses_array
-    @verses_array ||= @response["request"]["verses"]["verse"]
+    @short_chapter_verses_array ||= @response["request"]["verses"]["verse"]
   end
 
   def completed_response?

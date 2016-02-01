@@ -12,7 +12,6 @@ end
 describe RcvBible::Reference do
   describe "#text_of" do
     it "foo" do
-
     end
     it 'returns some value' do
       expect(RcvBible::Reference.text_of("Psalm 23")).not_to be nil
@@ -34,8 +33,8 @@ describe RcvBible::Reference do
       expect(RcvBible::Reference.text_of("Jon 1")["Jon 1"].count).to eq 17
     end
     it 'returns verse list from books with only one chapter' do
-      expect(RcvBible::Reference.text_of("Jude")["Jude 1-24"].count).to eq 24
-      expect(RcvBible::Reference.text_of("3 john")['3 John 1-13'].count).to eq 13
+      expect(RcvBible::Reference.text_of("Jude")["Jude"].count).to eq 24
+      expect(RcvBible::Reference.text_of("3 john")['3 john'].count).to eq 13
     end
     it 'returns error message when passed bad book/chapter arguments' do
       expect(RcvBible::Reference.text_of("Awesome")["Awesome"]).to eq "Bad Reference"
@@ -45,8 +44,8 @@ describe RcvBible::Reference do
       expect(RcvBible::Reference.text_of('Matt 1')["Matt 1"].count).to eq 25
       expect(RcvBible::Reference.text_of("1 Kings 1")["1 Kings 1"].count).to eq 53
       expect(RcvBible::Reference.text_of('1 Kings 1')["1 Kings 1"].count).to eq 53
-      expect(RcvBible::Reference.text_of('2 John 1')["2 John 1-13"].count).to eq 13
-      expect(RcvBible::Reference.text_of("2 John 1")["2 John 1-13"].count).to eq 13
+      expect(RcvBible::Reference.text_of('2 John 1')["2 John 1"].count).to eq 13
+      expect(RcvBible::Reference.text_of("2 John 1")["2 John 1"].count).to eq 13
     end
   end
 end
