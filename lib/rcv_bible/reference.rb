@@ -3,7 +3,6 @@ class RcvBible::Reference
   def initialize(reference)
     @reference = reference
     @parsed_request = RcvBible::OneChapterBookConverter.adjust_reference(reference)
-
     initial_request
     verse_requests
   end
@@ -16,8 +15,12 @@ class RcvBible::Reference
     @error
   end
 
+  def copyright
+    [{copyright: @response["request"]["copyright"] }]
+  end
+
   def verses
-    @verses
+    @verses + copyright
   end
 
   def message
@@ -49,8 +52,9 @@ class RcvBible::Reference
     else
       long_chapter_verses_array = []
       RcvBible::ChapterRangeMaker.new(chapter_verse_count).verse_ranges.each do |vr|
-      verses_chunk = HTTParty.get(
-                                  "https://api.lsm.org/recver.php?String=#{@reference}: #{vr.first}-#{vr.last}").
+        verses_chunk = HTTParty.get(
+                                  "https://api.lsm.org/recver.php?
+                                  String=#{@reference}: #{vr.first}-#{vr.last}").
                                   to_h["request"]["verses"]["verse"]
         long_chapter_verses_array << verses_chunk
       end

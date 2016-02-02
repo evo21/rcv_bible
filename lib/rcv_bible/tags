@@ -3,6 +3,7 @@ adjust_reference	/Users/evankoch/code/rcv_bible/lib/rcv_bible/one_chapter_book_c
 adjust_reference	/Users/evankoch/code/rcv_bible/lib/rcv_bible/one_chapter_book_converter.rb	/^  def self.adjust_reference(reference)$/;"	F	language:Ruby	class:RcvBible
 chapter_verse_count	/Users/evankoch/code/rcv_bible/lib/rcv_bible/reference.rb	/^  def chapter_verse_count$/;"	f	language:Ruby	class:RcvBible
 completed_response?	/Users/evankoch/code/rcv_bible/lib/rcv_bible/reference.rb	/^  def completed_response?$/;"	f	language:Ruby	class:RcvBible
+copyright	/Users/evankoch/code/rcv_bible/lib/rcv_bible/reference.rb	/^  def copyright$/;"	f	language:Ruby	class:RcvBible
 error	/Users/evankoch/code/rcv_bible/lib/rcv_bible/reference.rb	/^  def error$/;"	f	language:Ruby	class:RcvBible
 initialize	/Users/evankoch/code/rcv_bible/lib/rcv_bible/chapter_range_maker.rb	/^  def initialize(num_verses)$/;"	f	language:Ruby	class:RcvBible
 initialize	/Users/evankoch/code/rcv_bible/lib/rcv_bible/one_chapter_book_converter.rb	/^  def initialize(reference)$/;"	f	language:Ruby	class:RcvBible

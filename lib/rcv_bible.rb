@@ -1,4 +1,5 @@
 require "httparty"
+#require "pry"
 
 class RcvBible
   VERSION = "0.0.3"
