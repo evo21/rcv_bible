@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "rcv_bible"
-  spec.version       = '0.0.2'
+  spec.version       = '0.0.3'
   spec.authors       = ["Evan Koch"]
   spec.email         = ["evankoch@gmail.com"]
 
@@ -13,12 +13,15 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/evo21/rcv_bible"
   spec.license       = "MIT"
 
-  spec.files         = "lib/rcv_bible.rb"
+  spec.files         = ["lib/rcv_bible.rb",
+                        "lib/rcv_bible/one_chapter_book_converter.rb",
+                        "lib/rcv_bible/chapter_range_maker.rb",
+                        "lib/rcv_bible/reference.rb"]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^spec/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "acts_as_scriptural", "~> 0.0.2"
   spec.add_runtime_dependency "httparty", "~>0.13.7"
 
   spec.add_development_dependency "bundler", "~> 1.11"
