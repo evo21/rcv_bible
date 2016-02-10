@@ -31,7 +31,7 @@ describe RcvBible::Reference do
       expect(RcvBible::Reference.new("Awesome").error).to eq "Bad Reference"
     end
     it 'returns a valid response regardless of single, double, or [no] quotes in submission' do
-      expect(RcvBible::Reference.new("Matt 1").verses.size).to eq 26
+      expect(RcvBible::Reference.new("Matthew 1").verses.size).to eq 26
       expect(RcvBible::Reference.new('Matt 1').verses.size).to eq 26
       expect(RcvBible::Reference.new("1 Kings 1").verses.size).to eq 54
       expect(RcvBible::Reference.new('1 Kings 1').verses.size).to eq 54
