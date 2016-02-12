@@ -2,7 +2,7 @@ require "httparty"
 #require "pry"
 
 class RcvBible
-  VERSION = "0.0.4"
+  VERSION = "0.0.5"
 end
 
 require 'rcv_bible/chapter_range_maker'

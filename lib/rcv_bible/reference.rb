@@ -1,7 +1,5 @@
 class RcvBible::Reference
 
-require 'pry'
-
   def initialize(reference)
     @reference = reference
     @parsed_request = RcvBible::OneChapterBookConverter.adjust_reference(reference)
@@ -10,7 +8,7 @@ require 'pry'
   end
 
   def initial_request
-    @response = HTTParty.get("https://api.lsm.org/recver.php?String='#{@parsed_request}'").to_h
+    @response = HTTParty.get("https://api.lsm.org/recver.php?String=#{@parsed_request}").to_h
   end
 
   def error
@@ -34,7 +32,7 @@ require 'pry'
   end
 
   def completed_response?
-    message == "\t"
+    message == "\t" || message == nil
   end
 
   def invalid_reference?
